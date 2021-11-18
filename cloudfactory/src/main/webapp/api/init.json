@@ -1,0 +1,81 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "user/Touserlist"
+  },
+  "logoInfo": {
+    "title": "智能云工厂",
+    "image": "statics/images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "超级管理员",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "用户管理",
+          "href": "user/Touserlist",
+          "icon": "fa fa-group",
+          "target": "_self"
+        },
+
+        {
+          "title": "产品管理",
+          "href": "",
+          "icon": "fa fa-tachometer",
+          "target": "_self",
+          "child": [
+            {
+              "title": "产品管理",
+              "href": "product/list",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            },
+            {
+              "title": "产品类别管理",
+              "href": "productType/tolist",
+              "icon": "fa fa-tachometer",
+              "target": "_self"
+            }
+          ]
+        },
+
+        {
+          "title": "设备管理",
+          "href": "",
+          "icon": "fa fa-gears",
+          "target": "_self",
+          "child": [
+            {
+              "title": "设备管理",
+              "href": "device/tolist",
+              "icon": "fa fa-gears",
+              "target": "_self"
+            },
+            {
+              "title": "设备类别管理",
+              "href": "deviceType/tolist",
+              "icon": "fa fa-gears",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "工厂管理",
+          "href": "factory/tolist",
+          "icon": "fa fa-home",
+          "target": "_self"
+        },
+        {
+          "title": "订单管理",
+          "href": "order/tolist",
+          "icon": "fa fa-file-text",
+          "target": "_self"
+        }
+      ]
+    }
+  ]
+}

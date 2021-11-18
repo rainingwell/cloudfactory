@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.dao.procedure.ProcedureMapper">
+    <select id="purchase" statementType="CALLABLE"  resultType="java.lang.String">
+        call purchase(
+            #{orderno,mode=IN,jdbcType=VARCHAR},
+            #{productid,mode=IN,jdbcType=VARCHAR},
+            #{ordernum,mode=IN,jdbcType=VARCHAR},
+            #{deliverDate,mode=IN,jdbcType=VARCHAR},
+            #{deaddate,mode=IN,jdbcType=VARCHAR},
+            #{userid,mode=IN,jdbcType=VARCHAR},
+            #{address,mode=IN,jdbcType=VARCHAR},
+            #{mobile,mode=IN,jdbcType=VARCHAR});
+    </select>
+    <select id="bid" statementType="CALLABLE"  resultType="java.lang.String">
+        call bid(
+            #{bid_id,mode=IN,jdbcType=VARCHAR});
+    </select>
+    <select id="rent" statementType="CALLABLE"  resultType="java.lang.String">
+        call rent(
+            #{deviceid,mode=IN,jdbcType=VARCHAR},
+            #{begindate,mode=IN,jdbcType=VARCHAR},
+            #{length,mode=IN,jdbcType=VARCHAR},
+            #{factoryid,mode=IN,jdbcType=VARCHAR});
+    </select>
+    <select id="capacity" statementType="CALLABLE"  resultType="java.lang.String">
+        call capacity(
+            #{deviceid,mode=IN,jdbcType=VARCHAR},
+            #{productid,mode=IN,jdbcType=VARCHAR},
+            #{capacity,mode=IN,jdbcType=VARCHAR});
+    </select>
+    <select id="schedule" statementType="CALLABLE"  resultType="java.lang.String">
+        call schedule(
+            #{sid,mode=IN,jdbcType=VARCHAR},
+            #{deviceid,mode=IN,jdbcType=VARCHAR},
+            #{orderid,mode=IN,jdbcType=VARCHAR},
+            #{starttime,mode=IN,jdbcType=VARCHAR},
+            #{endtime,mode=IN,jdbcType=VARCHAR});
+    </select>
+</mapper>

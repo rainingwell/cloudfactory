@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.dao.device.DeviceMapper">
+    <select id="getDeviceList" resultType="com.pojo.Device">
+        select * from factory.module_device_tab limit #{currentPageNo},#{pageSize}
+    </select>
+    <insert id="addDevice" parameterType="com.pojo.Device">
+        insert into factory.module_device_tab(id,typeid,devicename,norms,`describe`,deviceno,devicestatus,rentstatus,factoryid)
+        values(#{id},#{typeid},#{devicename},#{norms},#{describe},#{deviceno},#{devicestatus},#{rentstatus},#{factoryid});
+    </insert>
+    <delete id="deleteDevice">
+        delete from factory.module_device_tab where id=#{id}
+    </delete>
+
+    <update id="updateDevice" parameterType="com.pojo.Device">
+        update factory.module_device_tab
+        set typeid=#{typeid},devicename=#{devicename},norms=#{norms},`describe`=#{describe},deviceno=#{deviceno}
+        where id=#{id};
+    </update>
+
+    <update id="updateDeviceStatus" parameterType="com.pojo.Device">
+        update factory.module_device_tab set devicestatus=#{devicestatus} where id=#{id};
+    </update>
+
+    <update id="rent" parameterType="com.pojo.Device">
+        update factory.module_device_tab set rentstatus=#{rentstatus},factoryid=#{factoryid} where id=#{id};
+    </update>
+
+    <select id="getCapacityList" resultType="com.pojo.Capacity">
+        select * from factory.module_device_product_tab
+    </select>
+
+    <update id="updateCapacity" parameterType="com.pojo.Capacity">
+        update factory.module_device_product_tab set productid=#{productidnew},capacity=#{capacity} where deviceid=#{deviceid} and productid=#{productidold};
+    </update>
+
+    <delete id="deleteCapacity">
+        delete from factory.module_device_product_tab where deviceid=#{deviceid} and productid=#{productid}
+    </delete>
+
+    <insert id="addCapacity" parameterType="com.pojo.Capacity">
+        insert into factory.module_device_product_tab(deviceid,productid,capacity)
+        values(#{deviceid},#{productid},#{capacity});
+    </insert>
+</mapper>

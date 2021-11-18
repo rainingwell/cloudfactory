@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.dao.factory.FactoryMapper">
+    <select id="getFactoryList" resultType="com.pojo.Factory">
+        select * from factory.module_factory_tab limit #{currentPageNo},#{pageSize}
+    </select>
+
+    <select id="getFactoryCount" resultType="com.pojo.Factory">
+        select * from factory.module_factory_tab
+    </select>
+
+    <delete id="deleteFactoryByUserId">
+        delete from factory.module_factory_tab where userid=#{userid}
+    </delete>
+    <update id="updateFactory">
+        update factory.module_factory_tab set status=#{status} where id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.dao.deviceType.DeviceTypeMapper">
+    <select id="getDeviceTypeList" resultType="com.pojo.DeviceType">
+        select * from factory.module_device_type_tab limit #{currentPageNo},#{pageSize}
+    </select>
+
+    <insert id="addDeviceType" parameterType="com.pojo.DeviceType">
+        insert into factory.module_device_type_tab(id,typename) values(#{id},#{typename})
+    </insert>
+
+    <delete id="deleteDeviceType" >
+        delete from factory.module_device_type_tab where id=#{id}
+    </delete>
+
+    <update id="updateDeviceType" parameterType="com.pojo.DeviceType">
+        update factory.module_device_type_tab set typename=#{typename} where id=#{id}
+    </update>
+</mapper>

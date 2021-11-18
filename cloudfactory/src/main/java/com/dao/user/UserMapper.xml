@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.dao.user.UserMapper">
+    <select id="getUserList" resultType="com.pojo.User">
+        select * from factory.frame_user_tab limit #{currentPageNo},#{pageSize}
+    </select>
+    <select id="login" resultType="com.pojo.User">
+        select * from factory.frame_user_tab where account=#{account} and password=#{password};
+    </select>
+    <select id="register" statementType="CALLABLE"  resultType="java.lang.String">
+        call register(
+            #{user.account,mode=IN,jdbcType=VARCHAR},
+            #{user.password,mode=IN,jdbcType=VARCHAR},
+            #{user.name,mode=IN,jdbcType=VARCHAR},
+            #{user.mobile,mode=IN,jdbcType=VARCHAR},
+            #{user.roleid,mode=IN,jdbcType=VARCHAR},
+            #{factory_name,mode=IN,jdbcType=VARCHAR},
+            #{factory_profile,mode=IN,jdbcType=VARCHAR});
+    </select>
+    <insert id="addUser" parameterType="com.pojo.User">
+        insert into factory.frame_user_tab(id,account,password,name,mobile,roleid) values(#{id},#{account},#{password},#{name},#{mobile},#{roleid});
+    </insert>
+    <delete id="delete" >
+        delete from factory.frame_user_tab where id=#{id};
+    </delete>
+    <update id="update" parameterType="com.pojo.User">
+        update factory.frame_user_tab set account=#{account},password=#{password},name=#{name},mobile=#{mobile},roleid=#{roleid}
+        where id=#{id};
+    </update>
+    <select id="getUserListById" resultType="com.pojo.User">
+        select * from factory.frame_user_tab where id=#{id}
+    </select>
+    <select id="getUserCount" resultType="com.pojo.User">
+        select * from factory.frame_user_tab
+    </select>
+</mapper>

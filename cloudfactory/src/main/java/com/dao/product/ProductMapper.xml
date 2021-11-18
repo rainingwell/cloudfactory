@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.dao.product.ProductMapper">
+    <select id="getProductList" resultType="com.pojo.Product">
+        select * from factory.module_product_tab limit #{currentPageNo},#{pageSize}
+    </select>
+
+    <select id="getProductCount" resultType="com.pojo.Product">
+        select * from factory.module_product_tab
+    </select>
+    <insert id="addProduct" parameterType="com.pojo.Product">
+        insert into factory.module_product_tab(id,typeid,productname,norms,`describe`,productno) values(#{id},#{typeid},#{productname},#{norms},#{describe},#{productno});
+    </insert>
+    <delete id="deleteProduct">
+        delete from factory.module_product_tab where id=#{id}
+    </delete>
+
+    <update id="updateProduct" parameterType="com.pojo.Product">
+    update factory.module_product_tab set typeid=#{typeid},productname=#{productname},norms=#{norms},`describe`=#{describe},productno=#{productno}
+    where id=#{id};
+    </update>
+</mapper>

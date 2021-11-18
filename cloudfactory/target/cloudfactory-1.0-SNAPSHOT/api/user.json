@@ -1,0 +1,19 @@
+{
+  "code": 0,
+  "msg": "",
+  "count": 1000,
+  "data": [
+    {
+      "username": "user-0",
+      "account": "77661332",
+      "mobile": "15252030061",
+      "role": "云工厂管理员"
+    },
+    {
+      "username": "user-1",
+      "account": "77661332",
+      "mobile": "15252004607",
+      "role": "云工厂管理员2"
+    }
+  ]
+}

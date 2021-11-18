@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+<!--            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>-->
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="rent">租用</a>
+        </script>
+
+    </div>
+</div>
+<script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        table.render({
+            elem: '#currentTableId',
+            method: 'post',
+            url: '/device/rentlist',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                // {type: "checkbox", width: 50},
+                // {field: 'id', width: 80, title: 'ID', sort: true},
+                {field: 'id', width: 180, title: 'id',hide:true},
+                {field: 'devicename', width: 180, title: '设备名称'},
+                // {field: 'sex', width: 80, title: '性别', sort: true},
+                {field: 'deviceno', width: 180, title: '设备编码'},
+                {field: 'norms', width: 180, title: '设备规格'},
+                {field: 'typeid', width: 180, title: '设备类别'},
+                // {field: 'sign', title: '签名', minWidth: 150},
+                // {field: 'devicestatus', width: 100, title: '设备状态'},
+                // {field: 'rentstatus', width: 100, title: '租用状态'},
+                {field: 'describe', width: 200, title: '描述'},
+                // {field: 'factoryid', width: 100, title: '工厂'},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            ]],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 15,
+            page: true,
+            skin: 'line',
+            request: {
+                pageName: 'page',   // 页码的参数名称，默认：page
+                limitName: 'size'   // 每页数据量的参数名，默认：limit
+            },
+        });
+        /**
+         * toolbar监听事件
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+             if (obj.event === 'rent') {  // 监听删除操作
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj)
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'rent') {
+                layer.confirm('确定租用吗？', function (index) {
+                    $.ajax({
+                        type:"POST",
+                        url:'/device/rent',
+                        data:{id: obj.data.id,rent:1},
+                        dataType:"text",
+                        success : function(data) {
+                            layer.msg('操作成功');
+                            table.reload('currentTableId', 'data');
+                        },
+                        error : function (){
+                            layer.msg('操作失败');
+                        }
+                    });
+                    // obj.del();
+                    layer.close(index);
+                });
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>

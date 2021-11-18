@@ -1,0 +1,56 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "device/tocloudlist"
+  },
+  "logoInfo": {
+    "title": "智能云工厂",
+    "image": "statics/images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "云工厂管理员",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+
+        {
+          "title": "我的工厂",
+          "href": "",
+          "icon": "fa fa-home",
+          "target": "_self",
+          "child": [
+            {
+              "title": "设备管理",
+              "href": "device/tocloudlist",
+              "icon": "fa fa-gears",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "订单管理",
+          "href": "",
+          "icon": "fa fa-file-text",
+          "target": "_self",
+          "child": [
+            {
+              "title": "订单接单",
+              "href": "order/tolist3",
+              "icon": "fa fa-gears",
+              "target": "_self"
+            },
+            {
+              "title": "订单排产",
+              "href": "order/tolist4",
+              "icon": "fa fa-gears",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

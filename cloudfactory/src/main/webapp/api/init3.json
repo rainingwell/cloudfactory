@@ -1,0 +1,36 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "order/tolist2"
+  },
+  "logoInfo": {
+    "title": "智能云工厂",
+    "image": "statics/images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "经销商",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+
+        {
+          "title": "订单管理",
+          "href": "",
+          "icon": "fa fa-file-text",
+          "target": "_self",
+          "child": [
+            {
+              "title": "我的订单",
+              "href": "order/tolist2",
+              "icon": "fa fa-gears",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

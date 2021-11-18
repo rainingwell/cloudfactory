@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.dao.order.OrderMapper">
+    <select id="getOrderList" resultType="com.pojo.Order">
+        select * from factory.module_order_tab limit #{currentPageNo},#{pageSize}
+    </select>
+
+    <insert id="addOrder" parameterType="com.pojo.Order">
+        insert into factory.module_order_tab(id,orderno,productid,ordernum,deaddate,deliverDate,userid,orderstatus,receipt,contact,address)
+        values(#{id},#{orderno},#{productid},#{ordernum},#{deaddate},#{deliverDate},#{userid},#{orderstatus},#{receipt},#{contact},#{address});
+    </insert>
+
+    <delete id="deleteOrder" >
+        delete from factory.module_order_tab where id=#{id};
+    </delete>
+    <update id="updateOrder" parameterType="com.pojo.Order">
+        update factory.module_order_tab set ordernum=#{ordernum},deaddate=#{deaddate},deliverDate=#{deliverDate},receipt=#{receipt},contact=#{contact},address=#{address},productid=#{productid}
+        where id=#{id};
+    </update>
+
+    <update id="updatestatus" parameterType="com.pojo.Order">
+        update factory.module_order_tab set orderstatus=#{orderstatus}
+        where id=#{id};
+    </update>
+
+    <select id="getBidList" resultType="com.pojo.Bid">
+        select * from factory.module_bid_tab where orderid=#{orderid}
+    </select>
+
+    <select id="getAllBidList" resultType="com.pojo.Bid">
+        select * from factory.module_bid_tab
+    </select>
+
+    <update id="updatebidstatus" parameterType="com.pojo.Bid">
+        update factory.module_bid_tab set status=#{status}
+        where id=#{id};
+    </update>
+
+    <insert id="addbid" parameterType="com.pojo.Bid">
+        insert into factory.module_bid_tab(id,orderid,factoryid,bidprice)
+        values(#{id},#{orderid},#{factoryid},#{bidprice})
+    </insert>
+</mapper>

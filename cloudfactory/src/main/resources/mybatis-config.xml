@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--configuration核心配置-->
+<configuration>
+    <settings>
+        <!-- 懒加载配置 -->
+        <setting name="lazyLoadingEnabled" value="false" />
+
+    </settings>
+    <typeAliases>
+        <package name="com.pojo"/>
+    </typeAliases>
+<!--每个mapper都要在这里注册-->
+<!--    <mappers>-->
+<!--        <mapper resource="com/dao/user/UserMapper.xml"/>-->
+<!--        <mapper resource="com/dao/procedure/ProcedureMapper.xml"/>-->
+<!--    </mappers>-->
+</configuration>

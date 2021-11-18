@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <!--    <div class="layui-form-item">-->
+    <!--        <label class="layui-form-label">用户id</label>-->
+    <!--        <div class="layui-input-block">-->
+    <!--            <input id="userid" type="text" name="id" lay-verify="required" lay-reqtext="id不能为空" placeholder="请输入用户id" value="" class="layui-input">-->
+    <!--            <tip>用户id  自动输入。</tip>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <input id="id" name="id" value="" class="input-text" type="hidden">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">选择产品</label>
+        <div class="layui-input-block" style="width:300px">
+            <select name="product" lay-filter="Type_filter" id="product" lay-verify="required">
+                <option value="">请选择</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">采购数量</label>
+        <div class="layui-input-block">
+            <input type="text" id="number" name="number" lay-verify="required" lay-reqtext="采购数量不能为空" placeholder="请输入采购数量" value="" class="layui-input" style="width:300px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">收货人</label>
+        <div class="layui-input-block">
+            <input type="text" id="receipt" name="receipt" lay-verify="required" lay-reqtext="收货人不能为空" placeholder="请输入收货人" value="" class="layui-input" style="width:300px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系方式</label>
+        <div class="layui-input-block">
+            <input type="text" id="contact" name="contact" lay-verify="required" lay-reqtext=联系方式不能为空" placeholder="请输入联系方式" value="" class="layui-input" style="width:300px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">收货地址</label>
+        <div class="layui-input-block">
+            <input type="text" id="address" name="address" lay-verify="required" lay-reqtext="收货地址不能为空" placeholder="请输入收货地址" value="" class="layui-input" style="width:300px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">交付日期</label>
+        <div class="layui-input-inline">
+            <input type="text" id="deliverdate" name="deliverdate" lay-verify="required"  placeholder="请输入交付日期" value="" class="layui-input" style="width:300px">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">投标截至</label>
+        <div class="layui-input-block">
+            <input type="text" id="deaddate" name="deaddate" lay-verify="required" placeholder="请输入投标截至日期" value="" class="layui-input" style="width:300px">
+        </div>
+    </div>
+
+
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+</div>
+<script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#deliverdate'//指定元素
+        });
+        laydate.render({
+            elem: '#deaddate'//指定元素
+        });
+    });
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+
+        //加载机构类型
+        $.ajax({
+            url: '/product/getlist2',
+            dataType: 'json',
+            data:{'state': 0},	//查询状态为正常的所有机构类型
+            type: 'post',
+            success: function (data) {
+                $.each(data.data, function (index, item) {
+                    $('#product').append(new Option(item.productname, item.id));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");
+            }
+        })
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            var index = layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            }, function () {
+                var json=JSON.stringify(data.field)
+                $.ajax({
+                    url:"/order/updateorder",
+                    data :  JSON.stringify(data.field),
+                    headers:{'Content-Type':'application/json'},	//json字符串，出现多余的冒号，需要用到头
+                    // contentType :"application/json;charsetset=UTF-8",//必须
+                    dataType:"text",//必须
+                    type:"post",
+                    success:function (data) {
+                        // alert(data)
+                        // 关闭弹出层
+                        layer.close(index);
+                        layer.alert("新增修改成功");
+                    }
+
+                });
+
+            });
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>
